@@ -1,4 +1,6 @@
 # image-to-pokemon-sprites-collage
-create a pokemon sprites-collage artwork from an image using python and pygame.
+Create a pokemon sprites-collage artwork from an image using python and pygame.
+
+A study in color theory and image proccessing
 
 ![image](/ref.jpg)
