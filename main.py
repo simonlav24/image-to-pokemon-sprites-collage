@@ -165,9 +165,11 @@ for f in os.listdir('sprites'):
 		sprites.append((pygame.image.load('sprites/' + f), f))
 
 ################################################################################ Main Loop
+interval = 50
+time = 0
 run = True
 while run:
-	
+	time += 1
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			run = False
@@ -181,8 +183,9 @@ while run:
 	# testColor()
 	makeImage()
 	
-	screen.blit(pygame.transform.scale(win, (720 * (winWidth / winHeight), 720)), (0,0))
-	pygame.display.update()
+	if time % interval == 0:
+		screen.blit(pygame.transform.scale(win, (720 * (winWidth / winHeight), 720)), (0,0))
+		pygame.display.update()
 pygame.quit()
 
 
