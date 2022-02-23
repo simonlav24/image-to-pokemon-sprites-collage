@@ -1,6 +1,6 @@
 from math import fabs, sqrt, cos, sin, pi, floor, ceil
 from random import uniform, randint, choice
-import pygame, os
+import pygame, os, ast
 pygame.init()
 
 pygame.font.init()
@@ -18,15 +18,23 @@ imageCount = sum([1 for f in os.listdir('sprites') if os.path.isfile(os.path.joi
 colorByIndex = {}
 
 def loadSprite(index):
-	return pygame.image.load('sprites/' + str(index) + '.png')
+	num = str(index).zfill(3)
+	return pygame.image.load('sprites/' + num + '.png')
 
 def saveIndices():
 	with open('colorPicker.txt', 'w') as f:
 		f.write(str(colorByIndex))
 
+def loadIndices():
+	global colorByIndex
+	try:
+		with open('colorPicker.txt', 'r') as f:
+			colorByIndex = ast.literal_eval(f.read())
+	except:
+		colorByIndex = {}
+
+loadIndices()
 currentSprite = loadSprite(currentIndex)
-
-
 
 run = True
 while run:
@@ -63,8 +71,9 @@ while run:
 	win.blit(pygame.transform.scale(currentSprite, (currentSprite.get_width() * 6, currentSprite.get_height() * 6)), (winWidth/2 - currentSprite.get_width() * 3, winHeight/2 - currentSprite.get_height() * 3))
 	
 	# blit current color if it exists
-	if currentIndex in colorByIndex.keys():
-		color = colorByIndex[currentIndex]
+	num = str(currentIndex).zfill(3)
+	if num in colorByIndex.keys():
+		color = colorByIndex[num]
 		pygame.draw.rect(win, color, (0,winHeight - 100, 100, 100))
 
 	pygame.display.update()
